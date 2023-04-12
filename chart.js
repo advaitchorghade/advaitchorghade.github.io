@@ -1,6 +1,6 @@
 anychart.onDocumentReady(function () {
   anychart.data.loadCsvFile(
-    'https://gist.githubusercontent.com/shacheeswadia/cd509e0b0c03964ca86ae7d894137043/raw/5f336c644ad61728dbac93026f3268b86b8d0680/teslaDailyData.csv',
+    'teslaDailyData.csv',
     function (data) {
       // create data table on loaded data
       var dataTable = anychart.data.table();
