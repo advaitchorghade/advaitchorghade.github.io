@@ -1,35 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Stock Chart</title>
-	<script type="text/javascript">
-		// Define the stock data
-		var data = [
-			{ date: '2022-01-01', value: 100 },
-			{ date: '2022-02-01', value: 150 },
-			{ date: '2022-03-01', value: 125 },
-			{ date: '2022-04-01', value: 180 },
-			{ date: '2022-05-01', value: 200 },
-			{ date: '2022-06-01', value: 160 }
-		];
-
-		// Define the canvas and its properties
-		var canvas = document.getElementById('chart');
-		canvas.width = 500;
-		canvas.height = 300;
-
-		// Draw the chart
-		var ctx = canvas.getContext('2d');
-		ctx.beginPath();
-		ctx.moveTo(0, canvas.height - data[0].value);
-		for (var i = 1; i < data.length; i++) {
-			ctx.lineTo(i * 50, canvas.height - data[i].value);
-		}
-		ctx.stroke();
-	</script>
+  <meta charset="utf-8">
+  <title>Stock Chart</title>
+  <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-stock.min.js"></script>
 </head>
 <body>
-	<h1>Stock Chart</h1>
-	<canvas id="chart"></canvas>
+  <div id="container" style="width: 100%; height: 500px;"></div>
+
+  <script type="text/javascript">
+    anychart.onDocumentReady(function() {
+      // create data table on loaded data
+      var dataTable = anychart.data.table();
+      
+      // create data for the chart
+      var data = [
+        { date: '2022-04-10', open: 124.97, high: 125.56, low: 122.49, close: 122.49 },
+        { date: '2022-04-11', open: 123.60, high: 125.78, low: 123.28, close: 125.78 },
+        { date: '2022-04-12', open: 124.62, high: 126.17, low: 124.50, close: 125.74 },
+        { date: '2022-04-13', open: 126.88, high: 127.13, low: 125.85, close: 126.33 }
+      ];
+
+      // add data to the data table
+      dataTable.addData(data);
+
+      // map loaded data for the candlestick series
+      var mapping = dataTable.mapAs({
+        open: 2,
+        high: 3,
+        low: 4,
+        close: 5
+      });
+
+      // create stock chart
+      var chart = anychart.stock();
+
+      // create first plot on the chart
+      var plot = chart.plot(0);
+
+      // set grid settings
+      plot.yGrid(true).xGrid(true).yMinorGrid(true).xMinorGrid(true);
+
+      var series = plot.candlestick(mapping)
+              .name('Tesla');
+
+      series.legendItem().iconType('rising-falling');
+
+      // create scroller series with mapped data
+      chart.scroller().candlestick(mapping);
+
+      // set chart selected date/time range
+      chart.selectRange('2022-04-10', '2022-04-13');
+
+      // create range picker
+      var rangePicker = anychart.ui.rangePicker();
+
+      // init range picker
+      rangePicker.render(chart);
+
+      // create range selector
+      var rangeSelector = anychart.ui.rangeSelector();
+
+      // init range selector
+      rangeSelector.render(chart);
+
+      // sets the title of the chart
+      chart.title('Tesla Inc. Stock Chart');
+
+      // set container id for the chart
+      chart.container('container');
+
+      // initiate chart drawing
+      chart.draw();
+    });
+  </script>
 </body>
 </html>
