@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AdvaitsAlphas4</title>
-    
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
+<head>
+	<title>Stock Chart</title>
+	<script type="text/javascript">
+		// Define the stock data
+		var data = [
+			{ date: '2022-01-01', value: 100 },
+			{ date: '2022-02-01', value: 150 },
+			{ date: '2022-03-01', value: 125 },
+			{ date: '2022-04-01', value: 180 },
+			{ date: '2022-05-01', value: 200 },
+			{ date: '2022-06-01', value: 160 }
+		];
 
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-ui.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-exports.min.js"></script>
+		// Define the canvas and its properties
+		var canvas = document.getElementById('chart');
+		canvas.width = 500;
+		canvas.height = 300;
 
-    <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
-    
-    <style>
-      /* add some basic styles for the headings */
-      h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>AdvaitsAlphas</h1>
-    <h2>Fulcrum Algo</h2>
-    <p>Some text about the Fulcrum Algo goes here.</p>
-    <h2>Tantrum Algo</h2>
-    <p>Some text about the Tantrum Algo goes here.</p>
-    <h2>WidowMakr Algo</h2>
-    <p>Some text about the WidowMakr Algo goes here.</p>
-    
-    <div id="container"></div>
-    <script src="js/chart.js"></script>
-    
-  </body>
+		// Draw the chart
+		var ctx = canvas.getContext('2d');
+		ctx.beginPath();
+		ctx.moveTo(0, canvas.height - data[0].value);
+		for (var i = 1; i < data.length; i++) {
+			ctx.lineTo(i * 50, canvas.height - data[i].value);
+		}
+		ctx.stroke();
+	</script>
+</head>
+<body>
+	<h1>Stock Chart</h1>
+	<canvas id="chart"></canvas>
+</body>
 </html>
