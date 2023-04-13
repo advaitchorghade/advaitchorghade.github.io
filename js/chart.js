@@ -1,6 +1,6 @@
 anychart.onDocumentReady(function () {
   anychart.data.loadCsvFile(
-    'teslaDailyData.csv',
+    'data/stocks.csv',
     function (data) {
       // create data table on loaded data
       var dataTable = anychart.data.table();
