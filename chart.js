@@ -8,50 +8,12 @@ var data = [
 	{ date: '2022-06-01', value: 160 }
 ];
 
-// Prepare the data for Chart.js
-var labels = data.map(function(item) {
-	return item.date;
-});
-
-var values = data.map(function(item) {
-	return item.value;
-});
-
-// Create the chart using Chart.js
-var ctx = document.getElementById('chart').getContext('2d');
-var chart = new Chart(ctx, {
-	type: 'line',
-	data: {
-		labels: labels,
-		datasets: [{
-			label: 'Stock Market Returns',
-			data: values,
-			borderColor: 'rgb(75, 192, 192)',
-			backgroundColor: 'rgba(75, 192, 192, 0.2)',
-			borderWidth: 1
-		}]
-	},
-	options: {
-		responsive: true,
-		interaction: {
-			mode: 'index',
-			intersect: false
-		},
-		scales: {
-			x: {
-				display: true,
-				title: {
-					display: true,
-					text: 'Date'
-				}
-			},
-			y: {
-				display: true,
-				title: {
-					display: true,
-					text: 'Value'
-				}
-			}
-		}
-	}
-});
+// Draw the chart
+var canvas = document.getElementById('chart');
+var ctx = canvas.getContext('2d');
+ctx.beginPath();
+ctx.moveTo(0, canvas.height - data[0].value);
+for (var i = 1; i < data.length; i++) {
+	ctx.lineTo(i * 50, canvas.height - data[i].value);
+}
+ctx.stroke();
